@@ -145,7 +145,7 @@ class TestDir(unittest.TestCase):
     def test_exist_dir_correctly(self):
         """test directory correctly"""
         self.assertEqual(
-            dir_utils.exist(self.directory),
+            dir_utils.exist('tests'),
             True,
             'Should exist correctly dir'
         )
