@@ -1,9 +1,9 @@
 """Module of Control for usage of git"""
 
 # Libraries
-import git
+from git import Git, Repo
 
 
-def clone_repository(directory: str, repository: str) -> bool:
+def clone(directory: str, repository: str, branch: str = 'master') -> Repo:
     """Clone Repository"""
-    pass
+    return Repo.clone_from(repository, directory, branch=branch)

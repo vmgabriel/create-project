@@ -108,3 +108,33 @@ class TestDir(unittest.TestCase):
             '/data/a/b/c',
             'Should auto complete route with data relative route'
         )
+
+    @patch('os.getcwd', return_value='/data')
+    def test_auto_complete_route_with_absolute(self, _):
+        """test auto complete route with absolute"""
+        mock = '/a/b/c'
+        self.assertEqual(
+            dir_utils.auto_complete_route(mock),
+            '/a/b/c',
+            'Should auto complete route with data absolute route'
+        )
+
+    @patch('os.getcwd', return_value='/data')
+    def test_auto_complete_route_with_absolute_slach_end(self, _):
+        """test auto complete route with absolute"""
+        mock = '/a/b/c/'
+        self.assertEqual(
+            dir_utils.auto_complete_route(mock),
+            '/a/b/c',
+            'Should auto complete route with data absolute route slash end'
+        )
+
+    @patch('os.getcwd', return_value='/data')
+    def test_auto_complete_route_with_absolute_slach_end_point_start(self, _):
+        """test auto complete route with absolute"""
+        mock = './a/b/c/'
+        self.assertEqual(
+            dir_utils.auto_complete_route(mock),
+            '/data/a/b/c',
+            'Should auto complete route with data absolute route with start slach'
+        )
