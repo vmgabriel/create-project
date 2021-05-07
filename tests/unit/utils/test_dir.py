@@ -11,6 +11,9 @@ from src.utils import dir_utils
 
 class TestDir(unittest.TestCase):
     """Test Dir Data Utils"""
+    def setUp(self):
+        self.directory = '~/test-repo'
+
     @patch('os.getcwd', return_value='/data')
     def test_pwd(self, _):
         """test pwd"""
@@ -137,4 +140,20 @@ class TestDir(unittest.TestCase):
             dir_utils.auto_complete_route(mock),
             '/data/a/b/c',
             'Should auto complete route with data absolute route with start slach'
+        )
+
+    def test_exist_dir_correctly(self):
+        """test directory correctly"""
+        self.assertEqual(
+            dir_utils.exist(self.directory),
+            True,
+            'Should exist correctly dir'
+        )
+
+    def test_exist_dir_error(self):
+        """test directory error"""
+        self.assertEqual(
+            dir_utils.exist('/a/b/c'),
+            False,
+            'Should exist error dir'
         )

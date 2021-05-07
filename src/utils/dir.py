@@ -47,3 +47,8 @@ def mkdir(path: str, exist_ok: bool = True) -> bool:
     """Create a directory"""
     pathlib.Path(path).mkdir(parents=True, exist_ok=exist_ok)
     return True
+
+
+def exist(route: str) -> bool:
+    """The dir exist?"""
+    return os.path.exists(route)

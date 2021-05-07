@@ -4,6 +4,7 @@ VERSION = '0.0.1'
 COMMAND_NAME = 'init-project'
 
 PYTHON_REPOSITORY = 'https://github.com/vmgabriel/python-base-project'
+PYTHON_BRANCH = 'super'
 
 COMMAND_USAGE = """{0}: the great project
 

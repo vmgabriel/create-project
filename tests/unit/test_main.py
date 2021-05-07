@@ -2,6 +2,7 @@
 
 # Libraries
 import unittest
+from unittest.mock import patch
 from getopt import GetoptError
 
 # Modules
@@ -68,10 +69,12 @@ class TestMain(unittest.TestCase):
             'should be a str of version'
         )
 
-    def test_generate_project(self):
-        """Genering project output"""
+    @patch('src.utils.git_utils.clone', return_value=None)
+    def test_generate_project_correctly(self, _):
+        """Genering project output correctly"""
+        mock = '.'
         self.assertEqual(
-            1,
-            1,
-            'should be a str of version'
+            main.generate_project(mock),
+            True,
+            'should generate a project correctly'
         )

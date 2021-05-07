@@ -6,8 +6,13 @@ import sys
 from getopt import getopt, GetoptError
 
 # Configurations
-from src.config import VERSION, COMMAND_USAGE
-from src.utils import dir_utils
+from src.config import (
+    VERSION,
+    COMMAND_USAGE,
+    PYTHON_REPOSITORY,
+    PYTHON_BRANCH
+)
+from src.utils import dir_utils, git_utils, path_utils
 
 # Constants
 COMMAND_ABBREV = "hd:v"
@@ -45,12 +50,13 @@ def get_opts(argv: List[str]) -> List[Opts]:
         raise exc
 
 
-def generate_project(directory: str = '.') -> str:
+def generate_project(directory: str = '.') -> bool:
     """Generate project based into directory"""
     new_path = dir_utils.auto_complete_route(directory)
-    print(new_path)
-    print(dir_utils.pwd())
-    return directory
+    if not dir_utils.exist(new_path):
+        dir_utils.mkdir(new_path)
+    git_utils.clone(new_path, PYTHON_REPOSITORY, PYTHON_BRANCH)
+    return len(path_utils.list_files(new_path)) > 0
 
 
 def define_output(opts: List[Opts]) -> str:
@@ -69,7 +75,6 @@ def define_output(opts: List[Opts]) -> str:
         return usage()
 
     if _o in ('-d', '--directory'):
-        # With directory Directory
         return generate_project(_a)
     return generate_project()
 
