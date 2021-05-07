@@ -47,6 +47,8 @@ def get_opts(argv: List[str]) -> List[Opts]:
 
 def generate_project(directory: str = '.') -> str:
     """Generate project based into directory"""
+    new_path = dir_utils.filter_route(directory)
+    print(dir_utils.mkdir)
     print(dir_utils.pwd())
     return directory
 

@@ -3,6 +3,7 @@
 # Libraries
 import unittest
 from unittest.mock import patch
+from pathlib import Path
 
 # Modules
 from src.utils import dir_utils
@@ -65,7 +66,7 @@ class TestDir(unittest.TestCase):
         mock = './data/1235'
         self.assertEqual(
             dir_utils.filter_route(mock),
-            '/data/1235',
+            'data/1235',
             'Should filter data valid for route'
         )
 
@@ -76,4 +77,34 @@ class TestDir(unittest.TestCase):
             dir_utils.filter_route(mock),
             '',
             'Should filter without route'
+        )
+
+    def test_mkdir(self):
+        """test mkdir -p using create directory"""
+        path = '/a/b/c'
+        with patch.object(Path, 'mkdir', return_value=True):
+            self.assertEqual(
+                dir_utils.mkdir(path),
+                True,
+                'Should mkdir'
+            )
+
+    @patch('os.getcwd', return_value='/data')
+    def test_auto_complete_route_with_point(self, _):
+        """test auto complete route with """
+        mock = '.'
+        self.assertEqual(
+            dir_utils.auto_complete_route(mock),
+            '/data',
+            'Should auto complete route with data .'
+        )
+
+    @patch('os.getcwd', return_value='/data')
+    def test_auto_complete_route_with_relative(self, _):
+        """test auto complete route with """
+        mock = 'a/b/c'
+        self.assertEqual(
+            dir_utils.auto_complete_route(mock),
+            '/data/a/b/c',
+            'Should auto complete route with data relative route'
         )

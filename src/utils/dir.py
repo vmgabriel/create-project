@@ -2,6 +2,7 @@
 
 # Libraries
 import os
+import pathlib
 
 
 def pwd() -> str:
@@ -14,8 +15,8 @@ def filter_route(directory: str) -> str:
     if directory == '.':
         return ''
     if directory[:2] == './':
-        return directory[1:]
-    return ''
+        return directory[2:]
+    return directory
 
 
 def format_route(directory: str) -> str:
@@ -30,3 +31,19 @@ def current_route(directory: str) -> str:
     if directory[0] == '/':
         return format_route(directory)
     return pwd()
+
+
+def auto_complete_route(directory: str) -> str:
+    """Route complete directory"""
+    process = current_route(directory)
+    if directory[0] != '/':
+        route = filter_route(format_route(directory))
+        with_route = f'/{route}' if route != '' else route
+        process += with_route
+    return process
+
+
+def mkdir(path: str, exist_ok: bool = True) -> bool:
+    """Create a directory"""
+    pathlib.Path(path).mkdir(parents=True, exist_ok=exist_ok)
+    return True
