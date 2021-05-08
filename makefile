@@ -1,5 +1,5 @@
 ENV=development
-REQUIREMENTS=requirements.txt
+REQUIREMENTS=requirements/development.txt
 
 
 all: clean install load
