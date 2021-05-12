@@ -49,7 +49,6 @@ install-dev:
 	chmod +x venv/bin/activate
 	make load && ./venv/bin/pip install -r requirements/development.txt
 
-
 install-prod:
 	pip install -r requirements/production.txt
 
