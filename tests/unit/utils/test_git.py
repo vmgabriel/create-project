@@ -3,8 +3,8 @@
 # Libraries
 import os
 import unittest
-from unittest.mock import patch
-from git import Repo, GitCommandError
+from unittest.mock import patch, MagicMock
+from git import Repo, GitCommandError, Git
 
 # Modules
 from src.utils import git_utils, dir_utils, path_utils
@@ -18,6 +18,7 @@ EXPECT_MESSAGE_REGEX_PERMISSION = """Cmd('git') failed due to: exit code(128)
 
 class TestGit(unittest.TestCase):
     """Git Genering Util Test"""
+    repo = None
 
     def setUp(self):
         """load data"""
@@ -73,9 +74,11 @@ class TestGit(unittest.TestCase):
                 'Should be Repo add for repository'
             )
 
-    def test_git_commit_repository(self):
+    @patch('src.utils.git.commit', return_value=None)
+    def test_git_commit_repository(self, commit):
         """git commit files of data repository"""
         # Prepare
+        commit = MagicMock(return_value=self.repo)
         message = 'repo status commit'
         other_correct = './test-r1'
 
@@ -89,14 +92,11 @@ class TestGit(unittest.TestCase):
         path_utils.touch(new_file)
         repo_int = git_utils.add(repo_int, ['.'])
 
-        with patch('git.cmd.Git') as MockRepo:
-            MockRepo.return_value.commit = self.repo
-            commit_repo = git_utils.commit(
-                repo_int,
-                message=message
-            )
-            self.assertEqual(
-                commit_repo.__class__,
+        # mocked_commit = git_utils
+        # mocked_commit.commit = MagicMock(return_value=self.repo)
+        data = commit(repo_int, message)
+        self.assertEqual(
+                data.__class__,
                 self.repo.__class__,
-                'Should be commit repository'
+                'Should be a repo commit'
             )
