@@ -43,6 +43,11 @@ def auto_complete_route(directory: str) -> str:
     return process
 
 
+def join_path(prev_path: str, curr_path: str):
+    """include the path to prev_path"""
+    return os.path.join(prev_path, curr_path)
+
+
 def mkdir(path: str, exist_ok: bool = True) -> bool:
     """Create a directory"""
     pathlib.Path(path).mkdir(parents=True, exist_ok=exist_ok)

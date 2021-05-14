@@ -157,3 +157,14 @@ class TestDir(unittest.TestCase):
             False,
             'Should exist error dir'
         )
+
+    def test_join_path(self):
+        """include the path result base"""
+        route_1 = '/data'
+        route_2 = '.git'
+        sep = dir_utils.join_path(route_1, route_2)
+        self.assertEqual(
+            sep,
+            '/data/.git',
+            'Should be other route with join include'
+        )

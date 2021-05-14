@@ -8,7 +8,10 @@ PYTHON_BRANCH = 'super'
 
 COMMAND_USAGE = """{0}: the great project
 
-usage: {0} [options]
+usage: {0} [options] [language]
+
+language: Support to all languages
+  python: data value (default value)
 
 Options:
   -d, --directory string  Location of directory to create a new project, for default .
