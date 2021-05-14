@@ -1,6 +1,6 @@
 """All configuration"""
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 COMMAND_NAME = 'init-project'
 
 PYTHON_REPOSITORY = 'https://github.com/vmgabriel/python-base-project'
